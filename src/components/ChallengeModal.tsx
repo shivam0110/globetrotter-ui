@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import * as api from '@/services/api';
 import { FaTimes, FaWhatsapp, FaCopy, FaCheck, FaUser } from 'react-icons/fa';
+import Image from 'next/image';
 
 interface ChallengeModalProps {
   isOpen: boolean;
@@ -17,20 +18,6 @@ const ChallengeModal: React.FC<ChallengeModalProps> = ({ isOpen, onClose }) => {
   const [shareImageUrl, setShareImageUrl] = useState<string>('');
   const [tempUsername, setTempUsername] = useState('');
   const [isSettingUsername, setIsSettingUsername] = useState(false);
-  
-  useEffect(() => {
-    if (isOpen && username) {
-      createChallenge();
-    } else if (isOpen && !username) {
-      setIsSettingUsername(true);
-    }
-  }, [isOpen, username]);
-  
-  useEffect(() => {
-    if (inviteLink && username) {
-      generateShareImage();
-    }
-  }, [inviteLink, username, bestTry]);
   
   const createChallenge = async () => {
     if (!username) {
@@ -87,6 +74,20 @@ const ChallengeModal: React.FC<ChallengeModalProps> = ({ isOpen, onClose }) => {
     
     setShareImageUrl(imageUrl);
   };
+
+  useEffect(() => {
+    if (isOpen && username) {
+      createChallenge();
+    } else if (isOpen && !username) {
+      setIsSettingUsername(true);
+    }
+  }, [isOpen, username, createChallenge]);
+  
+  useEffect(() => {
+    if (inviteLink && username) {
+      generateShareImage();
+    }
+  }, [inviteLink, username, generateShareImage]);
   
   const copyToClipboard = () => {
     navigator.clipboard.writeText(inviteLink).then(() => {
@@ -210,10 +211,12 @@ const ChallengeModal: React.FC<ChallengeModalProps> = ({ isOpen, onClose }) => {
           <>
             {shareImageUrl && (
               <div className="mb-4">
-                <img 
+                <Image 
                   src={shareImageUrl} 
-                  alt="Challenge preview" 
-                  className="w-full rounded-lg shadow-md border border-gray-700"
+                  alt="Challenge share image" 
+                  width={500} 
+                  height={300}
+                  className="w-full rounded-md"
                 />
               </div>
             )}

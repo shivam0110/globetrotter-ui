@@ -34,7 +34,7 @@ const Header: React.FC = () => {
     };
 
     createUserIfNeeded();
-  }, [username, setBestTry]);
+  }, [username, setBestTry, isLoading]);
 
   const handleSaveUsername = async () => {
     if (newUsername.trim()) {
