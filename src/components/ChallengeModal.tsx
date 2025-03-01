@@ -18,7 +18,7 @@ const ChallengeModal: React.FC<ChallengeModalProps> = ({ isOpen, onClose }) => {
   const [shareImageUrl, setShareImageUrl] = useState<string>('');
   const [tempUsername, setTempUsername] = useState('');
   const [isSettingUsername, setIsSettingUsername] = useState(false);
-  
+
   const createChallenge = async () => {
     if (!username) {
       setIsSettingUsername(true);
@@ -30,7 +30,7 @@ const ChallengeModal: React.FC<ChallengeModalProps> = ({ isOpen, onClose }) => {
     
     try {
       // Get user data
-      const userData = await api.createUser(username);
+      await api.createUser(username);
       
       // Create invite link with username encoded
       const baseUrl = window.location.origin;

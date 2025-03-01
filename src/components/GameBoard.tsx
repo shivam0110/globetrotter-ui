@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import * as api from '@/services/api';
-import { motion, AnimatePresence } from 'framer-motion';
-import { FaSadTear, FaGlobeAmericas, FaCheck, FaTimes, FaMapMarkerAlt } from 'react-icons/fa';
 import ReactConfetti from 'react-confetti';
 
 const GameBoard: React.FC = () => {
