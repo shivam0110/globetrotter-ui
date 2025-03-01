@@ -3,7 +3,7 @@ import { useGameStore } from '@/store/gameStore';
 import * as api from '@/services/api';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaSadTear, FaGlobeAmericas } from 'react-icons/fa';
-import Confetti from 'react-confetti';
+import ReactConfetti from 'react-confetti';
 
 const GameBoard: React.FC = () => {
   const { 
@@ -29,6 +29,7 @@ const GameBoard: React.FC = () => {
   const [shake, setShake] = useState(false);
   const [gaveUp, setGaveUp] = useState(false);
   const inputRef = useRef<HTMLInputElement>(null);
+  const [showConfetti, setShowConfetti] = useState(false);
   
   const fetchNewDestination = async () => {
     setLoading(true);
@@ -78,6 +79,9 @@ const GameBoard: React.FC = () => {
         if (data.correct_answers !== undefined) {
           setCorrectAnswers(data.correct_answers);
         }
+        
+        // Show confetti
+        setShowConfetti(true);
       } else {
         // Incorrect answer - don't show the correct answer yet
         setIncorrectGuesses([...incorrectGuesses, guess]);
@@ -203,6 +207,15 @@ const GameBoard: React.FC = () => {
   
   return (
     <div className="bg-gray-800 rounded-lg shadow-md p-6 border border-gray-700">
+      {showConfetti && (
+        <ReactConfetti
+          width={window.innerWidth}
+          height={window.innerHeight}
+          recycle={false}
+          numberOfPieces={500}
+        />
+      )}
+      
       {destination && !resultState && (
         <>
           <h2 className="text-xl font-bold mb-4 text-white">Where am I?</h2>
