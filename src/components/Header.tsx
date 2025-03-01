@@ -4,12 +4,14 @@ import React, { useState, useEffect } from 'react';
 import { useGameStore } from '@/store/gameStore';
 import { FaTrophy } from 'react-icons/fa';
 import * as api from '@/services/api';
+import ChallengeModal from './ChallengeModal';
 
 const Header: React.FC = () => {
   const { username, setUsername, bestTry, setBestTry } = useGameStore();
   const [isEditing, setIsEditing] = useState(false);
   const [newUsername, setNewUsername] = useState(username || '');
   const [isLoading, setIsLoading] = useState(false);
+  const [isChallengeModalOpen, setIsChallengeModalOpen] = useState(false);
 
   // Create user when component mounts if username exists but user might not be in DB
   useEffect(() => {
@@ -79,6 +81,17 @@ const Header: React.FC = () => {
           {isLoading && (
             <div className="text-xs text-gray-400">Loading...</div>
           )}
+
+        {/* {username && ( */}
+            <div className="border-t border-gray-700">
+              <button
+                onClick={() => setIsChallengeModalOpen(true)}
+                className="w-full px-2 bg-purple-600 text-white rounded hover:bg-purple-700 transition-colors flex items-center justify-center"
+              >
+                <span>Challenge a Friend</span>
+              </button>
+            </div>
+          {/* )} */}
           
           {username && !isEditing ? (
             <div className="text-sm">
@@ -132,6 +145,10 @@ const Header: React.FC = () => {
           )}
         </div>
       </div>
+      <ChallengeModal 
+        isOpen={isChallengeModalOpen}
+        onClose={() => setIsChallengeModalOpen(false)}
+      />
     </header>
   );
 };

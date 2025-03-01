@@ -141,11 +141,29 @@ export const getUser = async (username: string): Promise<{
 };
 
 export const createChallenge = async (userId: number) => {
-  const response = await api.post('/api/users/challenge', { user_id: userId });
-  return response.data;
+  const response = await fetch(`${API_URL}/api/users/challenge`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({ user_id: userId }),
+  });
+  
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Failed to create challenge');
+  }
+  
+  return await response.json();
 };
 
 export const getChallenge = async (inviteCode: string) => {
-  const response = await api.get(`/api/users/challenge/${inviteCode}`);
-  return response.data;
+  const response = await fetch(`${API_URL}/api/users/challenge/${inviteCode}`);
+  
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.error || 'Failed to get challenge');
+  }
+  
+  return await response.json();
 }; 
