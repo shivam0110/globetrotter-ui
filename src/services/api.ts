@@ -27,13 +27,13 @@ export interface AnswerResult {
 }
 
 // Helper function to handle API errors
-async function handleApiResponse<T>(response: Response): Promise<T> {
-  if (!response.ok) {
-    const errorData = await response.json().catch(() => ({}));
-    throw new Error(errorData.error || `API error: ${response.status}`);
-  }
-  return response.json();
-}
+// async function handleApiResponse<T>(response: Response): Promise<T> {
+//   if (!response.ok) {
+//     const errorData = await response.json().catch(() => ({}));
+//     throw new Error(errorData.error || `API error: ${response.status}`);
+//   }
+//   return response.json();
+// }
 
 export const getRandomDestination = async (): Promise<Destination> => {
   const response = await fetch(`${API_URL}/api/destinations/random`);
