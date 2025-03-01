@@ -52,7 +52,7 @@ const GameBoard: React.FC = () => {
   
   useEffect(() => {
     fetchNewDestination();
-  }, [fetchNewDestination]);
+  }, []);
   
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

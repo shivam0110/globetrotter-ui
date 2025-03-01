@@ -81,13 +81,13 @@ const ChallengeModal: React.FC<ChallengeModalProps> = ({ isOpen, onClose }) => {
     } else if (isOpen && !username) {
       setIsSettingUsername(true);
     }
-  }, [isOpen, username, createChallenge]);
+  }, [isOpen, username]);
   
   useEffect(() => {
     if (inviteLink && username) {
       generateShareImage();
     }
-  }, [inviteLink, username, generateShareImage]);
+  }, [inviteLink, username]);
   
   const copyToClipboard = () => {
     navigator.clipboard.writeText(inviteLink).then(() => {
